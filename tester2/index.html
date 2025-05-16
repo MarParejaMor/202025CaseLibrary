@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Documento sin título</title>
+<link rel="stylesheet" type="text/css" href="css/estilo1.css">
+</head>
+
+<body>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+	<script src="js/prog1.js"></script>
+	<script src="js/imagen.js"></script>
+    <h2>Subir una imagen</h2>
+    
+    <!-- Formulario para cargar la imagen -->
+    <form id="imageForm" method="post" action="imgserv.php"  enctype="multipart/form-data">
+        <p>
+          <input type="file" id="imageIn"  name="imagen" accept="image/*" onChange="recuperar()">
+        </p>
+        <p>
+          <input type="submit" name="submit" id="submit" value="Enviar" enctype="multipart/form-data">
+        </p>
+    </form>
+	<div style="margin: auto;width: 60%;">
+	<img src="imagenes/img1.png" alt="imagen_subida" id="myimg" style="border: solid 1px black;">
+	<button onClick="recuperar()">Imagen</button>
+	<p id="status"></p>
+	</div>
+
+    <!-- Área para visualizar la imagen subida -->
+</body>
+</html>
