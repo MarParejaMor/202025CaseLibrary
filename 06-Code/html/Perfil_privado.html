@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script> 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>Mi Perfil</title>
+</head>
+<body class="bg-light">
+    <div id="bodyContainer" class="container-fluid">
+        <div id="formContainer" class="col-9 mx-auto rounded mt-3 bg-white shadow py-3 px-5">
+            <h1 class="text-center">Mi Perfil</h1>
+            <form id="profileForm" name="profileForm" method="post" enctype="multipart/form-data">
+                    <div class="row align-items-top overflow-auto mb-4 mx-auto" id="personalInfo">
+                        <h4>Informacion Personal</h4>
+                        <div class="col-3 text-center">
+                            <img src="..." class="img-thumbnail img-fluid" alt="..." id="profileImg" ><br>
+                            <div class="form-group">
+                                <input type="file" class="form-control" id="profileImgInput" name="profileImg" accept="image/*" onchange="">
+                            </div>
+                        </div>
+                        <div class="col-9">
+                            <div class="row form-group">
+                                <div class="col mb-3 pr-5">
+                                    <label class="form-label">Nombre</label>
+                                    <input type="text" class="form-control" id="name" name="name">
+                                </div>
+                                <div class="col mb-3 pl-5">
+                                    <label class="form-label">Apellido</label>
+                                    <input type="text" class="form-control" id="lastname" name="lastname">
+                                </div>
+                                <div class="container-fluid mb-3">
+                                    <label class="form-label">Biografía(Acerca de mí):</label>
+                                    <textarea class="form-control" id="personalBio" name="personalBio"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row align-items-top overflow-auto form-group mb-4 mx-auto" id="contactInfo">
+                        <h4>Información de Contacto</h4>
+                        <div class="col mb-3 pl-5">
+                                <label class="form-label">Telefono</label>
+                                <input type="tel" class="form-control" id="phone" name="phone">
+                        </div>
+                        <div class="col mb-3 pr-5">
+                                <label class="form-label">Correo</label>
+                                <input type="email" class="form-control" id="mail" name="mail">
+                        </div>
+                        <div class="row mb-3">
+                                <label class="form-label">Dirección</label>
+                                <input type="text" class="form-control" id="address" name="address">
+                        </div>
+                    </div>
+                    <div class="row align-items-top overflow-auto form-group mx-auto" id="studiesInfo">
+                        <h4>Estudios y formación</h4>
+                        <div class="row border rounded overflow-scroll" id="studiesList">
+                            <div class="row align-items-center">
+                                <div class="col-md-10 overflow-x-visible">
+                                    <textarea class="form-control" disabled>(2024)MAESTRIA EN DERECHO, CON MENCION EN DERECHO CONSTITUCIONAL EN LA UNIVERSIDAD INDOAMERICA </textarea>
+                                </div>
+                                <div class="col-md-1 pr-1">
+                                    <button class="btn btn-sm btn-info">
+                                    <i class="bi-pencil-square"></i>
+                                    </button>
+                                </div>
+                                <div class="col-md-1 pl-1">
+                                    <button class="btn btn-sm btn-danger">
+                                    <i class="bi bi-x-circle"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 mb-3">
+                            <button class="btn btn-sm btn-success">
+                                Agregar item
+                                <i class="bi bi-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row align-items-top overflow-auto form-group mx-auto" id="workInfo">
+                        <h4>Trayectoria Profesional</h4>
+                        <div class="row border rounded overflow-scroll" id="studiesList">
+                            <div class="row align-items-center">
+                                <div class="col-md-10 overflow-x-visible">
+                                    <textarea class="form-control" disabled>(2024)MAESTRIA EN DERECHO, CON MENCION EN DERECHO CONSTITUCIONAL EN LA UNIVERSIDAD INDOAMERICA </textarea>
+                                </div>
+                                <div class="col-md-1 pr-1">
+                                    <button class="btn btn-sm btn-info">
+                                    <i class="bi-pencil-square"></i>
+                                    </button>
+                                </div>
+                                <div class="col-md-1 pl-1">
+                                    <button class="btn btn-sm btn-danger">
+                                    <i class="bi bi-x-circle"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 mb-3">
+                            <button class="btn btn-sm btn-success">
+                                Agregar item
+                                <i class="bi bi-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row align-items-top overflow-auto form-group mx-auto" id="workInfo">
+                        <h4>Trayectoria como activista</h4>
+                        <div class="row border rounded overflow-scroll" id="studiesList">
+                            <div class="row align-items-center">
+                                <div class="col-md-10 overflow-x-visible">
+                                    <textarea class="form-control" disabled>(2024)MAESTRIA EN DERECHO, CON MENCION EN DERECHO CONSTITUCIONAL EN LA UNIVERSIDAD INDOAMERICA </textarea>
+                                </div>
+                                <div class="col-md-1 pr-1">
+                                    <button class="btn btn-sm btn-info">
+                                    <i class="bi-pencil-square"></i>
+                                    </button>
+                                </div>
+                                <div class="col-md-1 pl-1">
+                                    <button class="btn btn-sm btn-danger">
+                                    <i class="bi bi-x-circle"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 mb-3">
+                            <button class="btn btn-sm btn-success">
+                                Agregar item
+                                <i class="bi bi-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="container row justify-content-center align-items-center">
+                        <div class="col-md-3">
+                            <input type="submit" class="btn btn-sm btn-success mb-1" value="Guardar Cambios">
+                        </div>
+                        <div class="col-md-3">
+                            <input type="reset" class="btn btn-sm btn-danger mb-1" value="Cancelar">
+                        </div>
+                    </div> 
+            </form>
+        </div>
+
+    </div>
+</body>
+</html>
