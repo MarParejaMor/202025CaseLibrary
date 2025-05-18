@@ -1,3 +1,16 @@
+<?php
+session_start();
+$profilePicture="";
+if($_SESSION["images"]=="")
+{
+    $profilePicture="../images/blank-profile-picture.png";
+}
+else
+{
+    $profilePicture=$_SESSION["images"];
+}
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,11 +26,15 @@
     <div id="bodyContainer" class="container-fluid">
         <div id="formContainer" class="col-9 mx-auto rounded mt-3 bg-white shadow py-3 px-5">
             <h1 class="text-center">Mi Perfil</h1>
-            <form id="profileForm" name="profileForm" method="post" enctype="multipart/form-data" onsubmit="return formSubmissionControl()">
+            <form id="profileForm" name="profileForm" method="post" action="../php/updateProfile.php" enctype="multipart/form-data" onsubmit="return formSubmissionControl()">
                     <div class="row align-items-top overflow-auto mb-4 mx-auto" id="personalInfo">
                         <h4>Informacion Personal</h4>
                         <div class="col-3 text-center">
-                            <img src="../images/blank-profile-picture.png" class="img-thumbnail img-fluid" alt="Imagen de Perfil" id="profileImg"><br>
+                            <img src="
+                            <?php
+                                echo($profilePicture);
+                            ?>
+                            " class="img-thumbnail img-fluid" alt="Imagen de Perfil" id="profileImg"><br>
                             <div class="form-group">
                                 <input type="file" class="form-control" id="profileImgInput" name="profileImg" accept="image/*" onchange="profileImgPreview()">
                             </div>
