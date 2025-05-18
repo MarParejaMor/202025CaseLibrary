@@ -1,14 +1,23 @@
 <?php
-session_start();
-$profilePicture="";
-if($_SESSION["images"]=="")
-{
-    $profilePicture="../images/blank-profile-picture.png";
-}
-else
-{
-    $profilePicture=$_SESSION["images"];
-}
+    session_start();
+    include("../php/db_connection.php");
+    $userData;
+    if(isset($_SESSION["account_id"]))
+    {
+        $user_id=$_SESSION["account_id"];
+        $profileQuery="SELECT `username`,`email`,`phone_number` FROM account WHERE `account_id`='$user_id'";
+        $result = mysqli_query($conn,$profileQuery);
+        $userData = mysqli_fetch_assoc($result);
+    }
+    $profilePicture="";
+    if($_SESSION["images"]=="")
+    {
+        $profilePicture="../images/blank-profile-picture.png";
+    }
+    else
+    {
+        $profilePicture=$_SESSION["images"];
+    }
 ?>
 
 <!DOCTYPE html>
@@ -43,7 +52,11 @@ else
                             <div class="row form-group">
                                 <div class="col mb-3 pr-5">
                                     <label class="form-label">Nombre</label>
-                                    <input type="text" class="form-control" id="name" name="name" required onchange="nameControl('name')">
+                                    <input type="text" class="form-control" id="name" name="name" required 
+                                    <?php
+                                        echo(htmlspecialchars('value='.$userData['username']));
+                                    ?>
+                                     onchange="nameControl('name')">
                                 </div>
                                 <div class="col mb-3 pl-5">
                                     <label class="form-label">Apellido</label>
@@ -60,11 +73,19 @@ else
                         <h4>Información de Contacto</h4>
                         <div class="col mb-3 pl-5">
                                 <label class="form-label">Telefono</label>
-                                <input type="tel" class="form-control" id="phone" name="phone" required onchange="phoneControl()">
+                                <input type="tel" class="form-control" id="phone" name="phone" required onchange="phoneControl()" 
+                                    <?php
+                                        echo(htmlspecialchars(' value='.$userData['phone_number']));
+                                    ?>
+                                    >
                         </div>
                         <div class="col mb-3 pr-5">
                                 <label class="form-label">Correo</label>
-                                <input type="email" class="form-control" id="mail" name="mail" required onchange="mailControl()">
+                                <input type="email" class="form-control" id="mail" name="mail" required onchange="mailControl()"
+                                value="
+                                    <?php
+                                        echo($userData['email']);
+                                    ?>"/>
                         </div>
                         <div class="row mb-3">
                                 <label class="form-label">Dirección</label>

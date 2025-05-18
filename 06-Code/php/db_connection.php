@@ -1,8 +1,8 @@
 <?php
 $host = "localhost";
-$user = "root";
-$password = "";
-$database = "legal_system";
+$user = "admin";
+$password = "admin";
+$database = "legalcondor";
 
 $conn = new mysqli($host, $user, $password, $database);
 
