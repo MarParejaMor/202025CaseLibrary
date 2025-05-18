@@ -5,7 +5,7 @@ body {
   margin: 0;
   font-family: 'Roboto', sans-serif;
   font-style: italic; /* TODO el texto en cursiva */
-  background: url('A1.jpg') no-repeat center center fixed;
+  background: url('../images/A1.jpg') no-repeat center center fixed;
   background-size: cover;
   position: relative;
   height: 100vh;

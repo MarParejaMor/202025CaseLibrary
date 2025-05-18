@@ -25,11 +25,11 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
   formData.append("password",  password);
 
   try {
-    const res = await fetch("php/login.php", { method: "POST", body: formData });
+    const res = await fetch("../php/login.php", { method: "POST", body: formData });
     const result = await res.json();
     if (result.success) {
       alert(result.message);
-      // window.location.href = "dashboard.html";
+      window.location.href = "Pagina_principal.html";
     } else {
       alert(result.message);
     }
@@ -79,7 +79,7 @@ document.getElementById("registerForm").addEventListener("submit", async functio
   formData.append("password", password);
 
   try {
-    const res = await fetch("php/register.php", { method: "POST", body: formData });
+    const res = await fetch("../php/register.php", { method: "POST", body: formData });
     const result = await res.json();
     if (result.success) {
       alert(result.message);
