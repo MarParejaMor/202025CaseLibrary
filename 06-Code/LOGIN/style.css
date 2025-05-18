@@ -1,0 +1,124 @@
+/* style.css */
+
+/* Fondo con paisaje difuminado */
+body {
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  font-style: italic; /* TODO el texto en cursiva */
+  background: url('A1.jpg') no-repeat center center fixed;
+  background-size: cover;
+  position: relative;
+  height: 100vh;
+}
+body::before {
+  content: '';
+  position: fixed; top:0; left:0;
+  width:100%; height:100%;
+  backdrop-filter: blur(10px);
+  background: rgba(0,0,0,0.6);
+  z-index: -1;
+}
+
+/* Tarjeta de vidrio oscuro */
+.glass-card {
+  background: rgba(20,20,20,0.6);
+  border-radius: 1rem;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.7);
+}
+
+/* Animación de entrada */
+.fade-in {
+  animation: fadeInUp 0.6s ease-out both;
+}
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Color dorado general */
+:root {
+  --gold: rgba(212,175,55,0.9);
+}
+
+/* Texto dorado y cursiva */
+h1, h3,
+.form-label, .form-text,
+.nav-link, .nav-link.active {
+  color: var(--gold) !important;
+  font-style: italic; /* títulos y etiquetas en cursiva */
+}
+
+/* Inputs y texto dentro */
+.form-control {
+  background: rgba(255,255,255,0.1) !important;
+  color: var(--gold) !important;
+  border: 1px solid rgba(255,255,255,0.3) !important;
+  font-style: italic; /* texto de inputs en cursiva */
+}
+
+/* Botones dorados difuminados */
+.btn-gold,
+.btn-form {
+  background: var(--gold) !important;
+  color: #111 !important;
+  font-weight: 500;
+  font-style: italic; /* botones en cursiva */
+  transition: transform .2s, box-shadow .2s;
+}
+.btn-gold:hover,
+.btn-form:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 16px var(--gold);
+}
+
+/* Pantalla de bienvenida */
+#welcomeScreen {
+  position: fixed; top:0; left:0;
+  width:100%; height:100%;
+  display:flex; align-items:center; justify-content:center;
+  background: rgba(0,0,0,0.95);
+  z-index:9999;
+  flex-direction:column;
+}
+#welcomeScreen h1 {
+  font-family: 'Playfair Display', serif;
+  margin-bottom:2rem;
+  font-size:3rem;
+}
+
+/* Pestañas de navegación fondo transparente */
+.nav-tabs .nav-link {
+  background: transparent !important;
+}
+.nav-tabs .nav-link.active {
+  background: rgba(20,20,20,0.6) !important;
+  border-color: var(--gold) !important;
+}
+
+/* Asegurar que el contenedor principal esté detrás de bienvenida */
+#mainContainer {
+  z-index: 1;
+}
+
+/* --------------------------------------------------
+   Placeholders dorados y en cursiva
+   -------------------------------------------------- */
+.form-control::placeholder {
+  color: var(--gold) !important;
+  font-style: italic !important;
+  opacity: 1 !important; /* para asegurar visibilidad */
+}
+/* Para compatibilidad con navegadores antiguos */
+.form-control::-webkit-input-placeholder {
+  color: var(--gold) !important;
+  font-style: italic !important;
+}
+.form-control:-ms-input-placeholder {
+  color: var(--gold) !important;
+  font-style: italic !important;
+}
+.form-control::-ms-input-placeholder {
+  color: var(--gold) !important;
+  font-style: italic !important;
+}
