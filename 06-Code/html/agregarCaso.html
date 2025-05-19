@@ -9,15 +9,33 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <title>Nuevo Proceso Legal</title>
 </head>
-<body>
     <body class="bg-light">
+        
+        <header class="navbar navbar-expand bg-dark text-white align-content-center fw-bold fixed-top justify-content-around">
+      <div>🖼️ Abg. Luz Romero</div>
+      <div>
+        <ul class="navbar-nav me-auto fw-normal mb-2 mb-lg-0">
+            <li class="nav-item">
+                <a class="nav-link link-light active link-underline" href="../html/Pagina_principal.html">Inicio</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link link-light active link-underline-light" href="../html/Perfil_privado.php">Perfil</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link link-light active" href="#">Ajustes</a>
+            </li>
+        </ul>
+      </div>
+        </header>
+
+
     <div id="bodyContainer" class="container-fluid">
-        <div id="formContainer" class="col-8 mx-auto rounded my-3 bg-white shadow py-3 px-5">
+        <div id="formContainer" class="col-8 mx-auto rounded mb-3 mt-5 bg-white shadow py-3 px-5">
             <h1 class="text-center">Agregar nuevo proceso</h1>
-            <form id="newProccessForm" name="newProccessForm" method="post" action="../php/updateProfile.php" enctype="multipart/form-data" onsubmit="return formSubmissionControl()">
+            <form id="newProccessForm" name="newProccessForm" method="post" action="../php/createProcess.php" onsubmit="return validateProcessCreation()">
                 <div class="mb-3">
                     <label for="title" class="form-label">Título:</label>
-                    <input type="text" class="form-control" id="title" name="title" placeholder="Título para los lectores" required>
+                    <input type="text" class="form-control" id="processTitle" name="processTitle" placeholder="Título para los lectores" onchange="titleControl()" required>
                 </div>
                 <div class="row mb-3">
                     <div class="col-auto">
@@ -34,7 +52,7 @@
                 </div> 
                 <div class="mb-3">
                     <label for="conflict" class="form-label">Controversia/Conflicto:</label>
-                    <input type="text" class="form-control" id="conflict" name="conflict" required>
+                    <input type="text" class="form-control" id="conflict" name="conflict" required onchange="conflictControl()">
                 </div> 
                 <div class="row mb-3">
                     <div class="col">
@@ -69,20 +87,18 @@
                 </div>
                 <div class="col">
                     <label for="title" class="form-label">Cantón:</label>
-                    <input type="text" class="form-control" id="canton" name="canton" required>
+                    <input type="text" class="form-control" id="canton" name="canton" required onchange="cantonControl()">
                 </div>
                 </div>
                 <div class="row mb-3">
-                    <div class="col-auto">
-                        <label for="processDescription" class="form-label">Resumen:</label>
-                        <textarea class="form-control" id="processDescription" name="processDescription" placeholder="Breve descripcion del caso a tratar"
-                         required>
+                    <label for="processDescription" class="form-label">Resumen:</label>
+                    <textarea class="form-control" id="processDescription" name="processDescription" onchange="descriptionControl()" 
+                     placeholder="Breve descripcion del caso a tratar" required>
                     </textarea>
-                    </div>
                 </div>
                     <div class="row justify-content-center align-items-center">
                         <div class="col-md-3">
-                            <input type="submit" class="btn btn-sm btn-success mb-1" value="Guardar Cambios" enctype="multipart/form-data">
+                            <input type="submit" class="btn btn-sm btn-success mb-1" value="Guardar Cambios">
                         </div>
                         <div class="col-md-3">
                             <input type="reset" class="btn btn-sm btn-danger mb-1" value="Cancelar">
@@ -91,5 +107,6 @@
             </form>
         </div>
     </div>
+    <script src="../javascript/proccessValidation.js"></script>
 </body>
 </html>

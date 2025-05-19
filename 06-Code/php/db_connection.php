@@ -2,7 +2,7 @@
 $host = "localhost";
 $user = "admin";
 $password = "admin";
-$database = "legalcondor";
+$database = "legal_system";
 
 $conn = new mysqli($host, $user, $password, $database);
 

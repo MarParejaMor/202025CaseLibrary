@@ -31,14 +31,14 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <title>Mi Perfil</title>
 </head>
-<body class="bg-light">
+<body class="bg-light justify-content-center">
     <div id="bodyContainer" class="container-fluid">
-        <div id="formContainer" class="col-9 mx-auto rounded mt-3 bg-white shadow py-3 px-5">
+        <div id="formContainer" class="col-9 mx-auto rounded my-3 bg-white shadow py-3 px-5">
             <h1 class="text-center">Mi Perfil</h1>
             <form id="profileForm" name="profileForm" method="post" action="../php/updateProfile.php" enctype="multipart/form-data" onsubmit="return formSubmissionControl()">
                     <div class="row align-items-top overflow-auto mb-4 mx-auto" id="personalInfo">
                         <h4>Informacion Personal</h4>
-                        <div class="col-3 text-center">
+                        <div class="col-sm-4 text-center">
                             <img src="
                             <?php
                                 echo($profilePicture);
@@ -48,9 +48,9 @@
                                 <input type="file" class="form-control" id="profileImgInput" name="profileImg" accept="image/*" onchange="profileImgPreview()">
                             </div>
                         </div>
-                        <div class="col-9">
+                        <div class="col-sm-8">
                             <div class="row form-group">
-                                <div class="col mb-3 pr-5">
+                                <div class="col-sm mb-3 pr-5">
                                     <label class="form-label">Nombre</label>
                                     <input type="text" class="form-control" id="name" name="name" required 
                                     <?php
@@ -58,15 +58,15 @@
                                     ?>
                                      onchange="nameControl('name')">
                                 </div>
-                                <div class="col mb-3 pl-5">
+                                <div class="col-sm mb-3 pl-5">
                                     <label class="form-label">Apellido</label>
                                     <input type="text" class="form-control" id="lastname" name="lastname" required onchange="nameControl('lastname')">
                                 </div>
-                                <div class="container-fluid mb-3">
-                                    <label class="form-label">Biografía(Acerca de mí):</label>
-                                    <textarea class="form-control" id="personalBio" name="personalBio"></textarea>
-                                </div>
                             </div>
+                        </div>
+                        <div class="col-sm-12 mb-3">
+                            <label class="form-label">Biografía(Acerca de mí):</label>
+                            <textarea class="form-control" id="personalBio" name="personalBio"></textarea>
                         </div>
                     </div>
                     <div class="row align-items-top overflow-auto form-group mb-4 mx-auto" id="contactInfo">
