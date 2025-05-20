@@ -2,7 +2,7 @@
 session_start();
 if(isset($_SESSION["account_id"]))
 {
-  header("Location: html/Pagina_principal.html");
+  header("Location: html/Pagina_principal.php");
 }
 else
 {

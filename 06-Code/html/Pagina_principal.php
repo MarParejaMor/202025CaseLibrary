@@ -13,7 +13,7 @@
         $processes.="</div>";
         $processes.="<div class='card-body'>";
         $processes.="<h3>".htmlspecialchars($process['title'])."</h3>";
-        $processes.="<p>".htmlspecialchars($process['description'])."</p>";
+        $processes.="<p>".htmlspecialchars($process['process_description'])."</p>";
         $processes.="</div>";
         $processes.="<div class='card-actions'>";
         $processes.="<button class='btn-like'>Me gusta</button>";

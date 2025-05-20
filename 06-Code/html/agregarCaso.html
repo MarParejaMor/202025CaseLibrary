@@ -38,9 +38,9 @@
                     <input type="text" class="form-control" id="processTitle" name="processTitle" placeholder="Título para los lectores" onchange="titleControl()" required>
                 </div>
                 <div class="row mb-3">
-                    <div class="col-auto">
+                    <div class="col-md-auto">
                     <label for="processType" class="form-label">Tipo de proceso:</label>
-                    <select class="form-control" id="processType" name="processType" required>
+                    <select class="form-select" id="processType" name="processType" required>
                         <option value=""></option>
                         <option value="penal">Penal</option>
                         <option value="civil">Civil</option>
@@ -49,15 +49,30 @@
                         <option value="laboral">Laboral</option>
                     </select>
                 </div>
+                <div class="row mb-3">
+                    <p class="h5 mb-1">Datos del cliente</p>
+                    <div class="col-sm-6">
+                        <label class="form-label">Genero:</label><br>
+                        <select id="gender" name="gender" class="form-select">
+                            <option value=""></option>
+                            <option value="mujer">Mujer</option>
+                            <option value="hombre">Hombre</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-6">
+                        <label class="form-label">Edad:</label><br>
+                        <input type="number" name="age" id="age" min="7" step="1" class=" form-control"></select>
+                    </div>
+                </div>
                 </div> 
                 <div class="mb-3">
-                    <label for="conflict" class="form-label">Controversia/Conflicto:</label>
+                    <label for="conflict" class=" form-label col-form-label">Controversia/Conflicto:</label>
                     <input type="text" class="form-control" id="conflict" name="conflict" required onchange="conflictControl()">
                 </div> 
                 <div class="row mb-3">
-                    <div class="col">
+                    <div class="col-md-6">
                     <label for="title" class="form-label">Provincia:</label>
-                    <select class="form-control" id="province" name="province" required>
+                    <select class="form-select" id="province" name="province" required>
                         <option value=""></option>
                         <option value="Azuay">Azuay</option>
                         <option value="Bolivar">Bolívar</option>
@@ -85,7 +100,7 @@
                         <option value="Zamora_Chinchipe">Zamora Chinchipe</option>
                     </select>
                 </div>
-                <div class="col">
+                <div class="col-md-6">
                     <label for="title" class="form-label">Cantón:</label>
                     <input type="text" class="form-control" id="canton" name="canton" required onchange="cantonControl()">
                 </div>

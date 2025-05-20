@@ -99,6 +99,31 @@ function validateDescription()
         return false;
     }
 }
+
+function ageControl()
+{
+    const dateInput=document.getElementById('age');
+    if(validateAge())
+    {
+        dateInput.classList.add('is-invalid');
+    }
+    else
+    {
+        dateInput.classList.remove('is-invalid');
+    }
+}
+function validateAge()
+{
+    let ageVal=document.getElementById('age').value;
+    if(ageVal>105)
+    {
+        return false;
+    }
+    else
+    {
+        return true;
+    }
+}
 function validateProcessCreation()
 {
     const inputValidations=[
