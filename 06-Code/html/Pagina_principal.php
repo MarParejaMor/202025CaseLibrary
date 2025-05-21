@@ -35,7 +35,7 @@
       <div class="logo">🖼️ Abg. Luz Romero</div>
       <nav class="main-nav">
         <a href="#">Inicio</a>
-        <a href="../html/Perfil_privado.php">Perfil</a>
+        <a href="../html/Perfil.php">Perfil</a>
         <a href="#">Ajustes</a>
       </nav>
     </header>

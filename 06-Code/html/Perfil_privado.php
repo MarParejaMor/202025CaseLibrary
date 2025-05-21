@@ -1,259 +1,140 @@
 <?php
-    session_start();
-    include("../php/db_connection.php");
-    $userData;
-    if(isset($_SESSION["account_id"]))
-    {
-        $user_id=$_SESSION["account_id"];
-        $profileQuery="SELECT `username`,`email`,`phone_number` FROM account WHERE `account_id`='$user_id'";
-        $result = mysqli_query($conn,$profileQuery);
-        $userData = mysqli_fetch_assoc($result);
-    }
-    $profilePicture="";
-    if($_SESSION["images"]=="")
-    {
-        $profilePicture="../images/blank-profile-picture.png";
-    }
-    else
-    {
-        $profilePicture=$_SESSION["images"];
-    }
+session_start();
+require_once __DIR__ . '/../php/db_connection.php';  // Ajusta según tu estructura
+
+// Verifica sesión
+if (!isset($_SESSION["account_id"])) {
+    die("Sesión no iniciada.");
+}
+
+$user_id = intval($_SESSION["account_id"]);
+
+// Consulta de datos con prepared statement
+$sql = "SELECT `name`, `lastname`, `username`, `email`, `phone_number`, `address`, `personal_bio`
+        FROM account 
+        WHERE account_id = ?";
+if ($stmt = $conn->prepare($sql)) {
+    $stmt->bind_param("i", $user_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $userData = $result->fetch_assoc();
+    $stmt->close();
+} else {
+    die("Error en la consulta: " . $conn->error);
+}
+
+// Imagen de perfil
+$profilePicture = (!empty($_SESSION["images"])) 
+    ? "../" . $_SESSION["images"] 
+    : "../images/blank-profile-picture.png";
 ?>
-
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script> 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
     <title>Mi Perfil</title>
+
+    <!-- Estilos fondo negro -->
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+        }
+        .bg-white { background-color: #1a1a1a !important; }
+        .form-control, .form-control:disabled {
+            background-color: #333 !important;
+            color: #fff !important;
+            border: 1px solid #555;
+        }
+        .form-label { color: #ccc; }
+        .modal-content { background-color: #1e1e1e; color: #fff; }
+        .btn-close { filter: invert(1); }
+    </style>
 </head>
-<body class="bg-light justify-content-center">
-    <div id="bodyContainer" class="container-fluid">
-        <div id="formContainer" class="col-9 mx-auto rounded my-3 bg-white shadow py-3 px-5">
-            <h1 class="text-center">Mi Perfil</h1>
-            <form id="profileForm" name="profileForm" method="post" action="../php/updateProfile.php" enctype="multipart/form-data" onsubmit="return formSubmissionControl()">
-                    <div class="row align-items-top overflow-auto mb-4 mx-auto" id="personalInfo">
-                        <h4>Informacion Personal</h4>
-                        <div class="col-sm-4 text-center">
-                            <img src="
-                            <?php
-                                echo($profilePicture);
-                            ?>
-                            " class="img-thumbnail img-fluid" alt="Imagen de Perfil" id="profileImg"><br>
-                            <div class="form-group">
-                                <input type="file" class="form-control" id="profileImgInput" name="profileImg" accept="image/*" onchange="profileImgPreview()">
-                            </div>
-                        </div>
-                        <div class="col-sm-8">
-                            <div class="row form-group">
-                                <div class="col-sm mb-3 pr-5">
-                                    <label class="form-label">Nombre</label>
-                                    <input type="text" class="form-control" id="name" name="name" required 
-                                    <?php
-                                        echo(htmlspecialchars('value='.$userData['username']));
-                                    ?>
-                                     onchange="nameControl('name')">
-                                </div>
-                                <div class="col-sm mb-3 pl-5">
-                                    <label class="form-label">Apellido</label>
-                                    <input type="text" class="form-control" id="lastname" name="lastname" required onchange="nameControl('lastname')">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-12 mb-3">
-                            <label class="form-label">Biografía(Acerca de mí):</label>
-                            <textarea class="form-control" id="personalBio" name="personalBio"></textarea>
-                        </div>
-                    </div>
-                    <div class="row align-items-top overflow-auto form-group mb-4 mx-auto" id="contactInfo">
-                        <h4>Información de Contacto</h4>
-                        <div class="col mb-3 pl-5">
-                                <label class="form-label">Telefono</label>
-                                <input type="tel" class="form-control" id="phone" name="phone" required onchange="phoneControl()" 
-                                    <?php
-                                        echo(htmlspecialchars(' value='.$userData['phone_number']));
-                                    ?>
-                                    >
-                        </div>
-                        <div class="col mb-3 pr-5">
-                                <label class="form-label">Correo</label>
-                                <input type="email" class="form-control" id="mail" name="mail" required onchange="mailControl()"
-                                value="
-                                    <?php
-                                        echo($userData['email']);
-                                    ?>"/>
-                        </div>
-                        <div class="row mb-3">
-                                <label class="form-label">Dirección</label>
-                                <input type="text" class="form-control" id="address" name="address" required onchange="addressControl()">
-                        </div>
-                    </div>
-                    <div class="row align-items-top overflow-auto form-group mx-auto" id="studiesInfo">
-                        <h4>Estudios y formación</h4>
-                        <div class="row border rounded overflow-scroll" id="studiesList">
-                            <div class="row align-items-center">
-                                <div class="col-md-10 overflow-x-visible">
-                                    <textarea class="form-control" disabled>(2024)MAESTRIA EN DERECHO, CON MENCION EN DERECHO CONSTITUCIONAL EN LA UNIVERSIDAD INDOAMERICA </textarea>
-                                </div>
-                                <div class="col-md-1 pr-1">
-                                    <button class="btn btn-sm btn-info">
-                                    <i class="bi-pencil-square"></i>
-                                    </button>
-                                </div>
-                                <div class="col-md-1 pl-1">
-                                    <button class="btn btn-sm btn-danger">
-                                    <i class="bi bi-x-circle"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-4 mb-3">
-                            <button class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                Agregar item
-                                <i class="bi bi-plus"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="row align-items-top overflow-auto form-group mx-auto" id="workInfo">
-                        <h4>Trayectoria Profesional</h4>
-                        <div class="row border rounded overflow-scroll" id="workList">
-                            <div class="row align-items-center">
-                                <div class="col-md-10 overflow-x-visible">
-                                    <textarea class="form-control" disabled>(2024)MAESTRIA EN DERECHO, CON MENCION EN DERECHO CONSTITUCIONAL EN LA UNIVERSIDAD INDOAMERICA </textarea>
-                                </div>
-                                <div class="col-md-1 pr-1">
-                                    <button class="btn btn-sm btn-info">
-                                    <i class="bi-pencil-square"></i>
-                                    </button>
-                                </div>
-                                <div class="col-md-1 pl-1">
-                                    <button class="btn btn-sm btn-danger">
-                                    <i class="bi bi-x-circle"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-4 mb-3">
-                            <button class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#workNewModal">
-                                Agregar item
-                                <i class="bi bi-plus"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="row align-items-top overflow-auto form-group mx-auto" id="activitesInfo">
-                        <h4>Trayectoria como activista</h4>
-                        <div class="row border rounded overflow-scroll" id="activitiesList">
-                            <div class="row align-items-center">
-                                <div class="col-md-10 overflow-x-visible">
-                                    <textarea class="form-control" disabled>(2024)MAESTRIA EN DERECHO, CON MENCION EN DERECHO CONSTITUCIONAL EN LA UNIVERSIDAD INDOAMERICA </textarea>
-                                </div>
-                                <div class="col-md-1 pr-1">
-                                    <button class="btn btn-sm btn-info">
-                                    <i class="bi-pencil-square"></i>
-                                    </button>
-                                </div>
-                                <div class="col-md-1 pl-1">
-                                    <button class="btn btn-sm btn-danger">
-                                    <i class="bi bi-x-circle"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-4 mb-3">
-                            <button class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#activityNewModal">
-                                Agregar item
-                                <i class="bi bi-plus"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="container row justify-content-center align-items-center">
-                        <div class="col-md-3">
-                            <input type="submit" class="btn btn-sm btn-success mb-1" value="Guardar Cambios" enctype="multipart/form-data">
-                        </div>
-                        <div class="col-md-3">
-                            <input type="reset" class="btn btn-sm btn-danger mb-1" value="Cancelar">
-                        </div>
-                    </div> 
-            </form>
-        </div>
+<body>
+    <div class="container my-4">
+        <div class="card bg-white text-white shadow">
+            <div class="card-header text-center">
+    <h1>Mi Perfil</h1>
+    <div class="mt-3">
+    <a href="Pagina_Principal.php" class="btn btn-primary me-2">
+            <i class="bi bi-house"></i> Página Principal
+        </a>
+        <a href="Perfil.php" class="btn btn-secondary">
+            <i class="bi bi-person-circle"></i> Mi Perfil
+        </a>
     </div>
-    
+</div>
 
-    <div class="modal fade" id="studyNewModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5 text-center" id="exampleModalLabel">Agregar Ítem</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <form id="newStudyForm" name="newStudyForm" method="post">
-                <div class="modal-body px-5">
-                    <div class="row mb-1">
-                        <label class="form-label">Titulo:</label>
-                        <textarea class="form-control" id="titleIn" name="titleIn">
-
-                        </textarea>
-                    </div>
-                    <div class="row mb-1">
-                        <label class="form-label">Institución:</label>
-                        <input type="text" class="form-control" id="studyInsitutionIn" name="studyInsitutionIn">
-                    </div>
-                    <div class="row mb-1">
-                        <label class="form-label">Año:</label>
-                        <div class="col-auto">
-                            <input type="number" class="form-control" id="studyYearIn" name="studyYearIn" step="1" placeholder="ej: 2024">
+            <div class="card-body">
+                <form method="post" action="../php/updateProfile.php" enctype="multipart/form-data">
+                    <div class="row mb-4">
+                        <div class="col-md-4 text-center">
+                            <img src="<?= htmlspecialchars($profilePicture) ?>"
+                                 class="img-thumbnail mb-2" alt="Perfil" style="max-width: 200px;">
+                            <input type="file" name="profileImg" accept="image/*" class="form-control">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Nombre</label>
+                                <input type="text" id="name" name="name" required
+                                       class="form-control"
+                                       value="<?= htmlspecialchars($userData['name']) ?>">
+                            </div>
+                            <div class="mb-3">
+                                <label for="lastname" class="form-label">Apellido</label>
+                                <input type="text" id="lastname" name="lastname" required
+                                       class="form-control"
+                                       value="<?= htmlspecialchars($userData['lastname']) ?>">
+                            </div>
+                            <div class="mb-3">
+                                <label for="personalBio" class="form-label">Biografía</label>
+                                <textarea id="personalBio" name="personalBio"
+                                          class="form-control"><?= htmlspecialchars($userData['personal_bio']) ?></textarea>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="modal-footer justify-content-center">
-                    <input type="reset" class="btn btn-danger mx-1" data-bs-dismiss="modal" value="Cancelar">
-                    <input type="reset" class="btn btn-primary mx-1" value="Agregar">
-                </div>
-            </form>
+                    <div class="row mb-4">
+                        <div class="col-md-6 mb-3">
+                            <label for="phone" class="form-label">Teléfono</label>
+                            <input type="tel" id="phone" name="phone" required
+                                   class="form-control"
+                                   value="<?= htmlspecialchars($userData['phone_number']) ?>">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="mail" class="form-label">Correo</label>
+                            <input type="email" id="mail" name="mail" required
+                                   class="form-control"
+                                   value="<?= htmlspecialchars($userData['email']) ?>">
+                        </div>
+                        <div class="col-12 mb-3">
+                            <label for="address" class="form-label">Dirección</label>
+                            <input type="text" id="address" name="address" required
+                                   class="form-control"
+                                   value="<?= htmlspecialchars($userData['address']) ?>">
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-success me-2">Guardar Cambios</button>
+                        <button type="reset" class="btn btn-danger">Cancelar</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 
-    <div class="modal fade" id="studyChangeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5 text-center" id="exampleModalLabel">Editar Ítem</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <form id="changeStudyForm" name="changeStudyForm" method="post">
-                <div class="modal-body px-5">
-                    <div class="row mb-1">
-                        <label class="form-label">Titulo:</label>
-                        <textarea class="form-control" id="titleCh" name="titleCh">
-
-                        </textarea>
-                    </div>
-                    <div class="row mb-1">
-                        <label class="form-label">Institución:</label>
-                        <input type="text" class="form-control" id="studyInsitutionCh" name="studyInsitutionCh">
-                    </div>
-                    <div class="row mb-1">
-                        <label class="form-label">Año:</label>
-                        <div class="col-auto">
-                            <input type="number" class="form-control" id="studyYearCh" name="studyYearCh" step="1" placeholder="ej: 2024">
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer justify-content-center">
-                    <input type="reset" class="btn btn-danger mx-1" data-bs-dismiss="modal" value="Cancelar">
-                    <input type="reset" class="btn btn-primary mx-1" value="Guardar Cambios">
-                </div>
-            </form>
-            </div>
-        </div>
-    </div>
-
-<script src="../javascript/profileControl.js"></script>
-    <script src="../javascript/profileValidation.js"></script>
+    <!-- Bootstrap JS + dependencias -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+<?php if (isset($_GET['success']) && $_GET['success'] == 1): ?>
+    <div class="alert alert-success text-center" role="alert">
+        Perfil actualizado correctamente.
+    </div>
+<?php endif; ?>
 </html>
