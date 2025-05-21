@@ -1,24 +1,23 @@
 <?php
-    session_start();
-    include("../php/db_connection.php");
-    $userData;
-    if(isset($_SESSION["account_id"]))
-    {
-        $user_id=$_SESSION["account_id"];
-        $profileQuery="SELECT `username`,`email`,`phone_number` FROM account WHERE `account_id`='$user_id'";
-        $result = mysqli_query($conn,$profileQuery);
-        $userData = mysqli_fetch_assoc($result);
-    }
-    $profilePicture="";
-    if($_SESSION["images"]=="")
-    {
-        $profilePicture="../images/blank-profile-picture.png";
-    }
-    else
-    {
-        $profilePicture=$_SESSION["images"];
-    }
+session_start();
+include("../php/db_connection.php");
+
+// Verifica si hay sesión iniciada
+if (!isset($_SESSION["account_id"])) {
+    die("Sesión no iniciada.");
+}
+
+$user_id = intval($_SESSION["account_id"]);
+
+// Consulta de datos del usuario
+$profileQuery = "SELECT `name`, `lastname`, `username`, `email`, `phone_number` FROM account WHERE `account_id` = $user_id";
+$result = mysqli_query($conn, $profileQuery);
+$userData = mysqli_fetch_assoc($result);
+
+// Imagen de perfil (usando sesión o imagen por defecto)
+$profilePicture = (!empty($_SESSION["images"])) ? "../" . $_SESSION["images"] : "../images/blank-profile-picture.png";
 ?>
+
 
 <!DOCTYPE html>
 <html>
@@ -211,9 +210,9 @@
                 </div>
                 <div class="modal-footer justify-content-center">
                     <input type="reset" class="btn btn-danger mx-1" data-bs-dismiss="modal" value="Cancelar">
-                    <input type="reset" class="btn btn-primary mx-1" value="Agregar">
+                    <input type="submit" class="btn btn-primary mx-1" value="Agregar">
                 </div>
-            </form>
+            </form> 
             </div>
         </div>
     </div>
@@ -246,7 +245,7 @@
                 </div>
                 <div class="modal-footer justify-content-center">
                     <input type="reset" class="btn btn-danger mx-1" data-bs-dismiss="modal" value="Cancelar">
-                    <input type="reset" class="btn btn-primary mx-1" value="Guardar Cambios">
+                    <input type="submit" class="btn btn-primary mx-1" value="Guardar Cambios">
                 </div>
             </form>
             </div>
