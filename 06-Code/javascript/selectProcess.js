@@ -10,7 +10,7 @@ $(document).ready(function()
     data: { process_id: id },
     success: function(response) {
         console.log(response);
-       Window.Location.href="processDashboard.php";
+       window.location.href="processDashboard.php";
     },
     error: function(response) {
             console.log("Error en la conexion");

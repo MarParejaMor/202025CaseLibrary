@@ -34,7 +34,7 @@ include("../php/getProcesses.php");
       <h1 class="mb-4">Procesos</h1>
       <div class="row">
         <div class="col-auto">
-          <button class="btn btn-success mb-3">
+          <button class="btn btn-success mb-3" onclick="window.location.href='agregarCaso.html'">
             <i class="bi bi-plus"></i>
             Agregar Proceso
           </button>

@@ -63,7 +63,7 @@ function cantonControl()
 function validateCanton()
 {
     let canton=document.getElementById('canton').value;
-    const format=/^[a-zA-Z0-9áéíóúñÁÉÍÓÚN\s]{7,}$/;
+    const format=/^[a-zA-Z0-9áéíóúñÁÉÍÓÚN\s]{3,}$/;
     if(format.test(canton))
     {
         return true

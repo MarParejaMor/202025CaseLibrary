@@ -105,7 +105,7 @@ include("../php/getProcessData.php");
                 </div>
                 <div class="mb-3">
                             <label for="title" class="form-label">Resumen:</label>
-                            <textarea disabled class=" form-control" id="processResume" name="processTitle" required><?=htmlspecialchars($currentProcess['process_description']); ?></textarea>
+                            <textarea disabled class=" form-control" id="processResume" name="processResume" required><?=htmlspecialchars($currentProcess['process_description']); ?></textarea>
                 </div>
                 <div class="row mb-3 justify-content-evenly">
                     <p class="h5 mb-1">Datos del cliente</p>

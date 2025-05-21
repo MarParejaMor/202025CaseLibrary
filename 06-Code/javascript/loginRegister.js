@@ -29,7 +29,7 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
     const result = await res.json();
     if (result.success) {
       alert(result.message);
-      window.location.href = "Pagina_principal.php";
+      window.location.href = "dashboard.php";
     } else {
       alert(result.message);
     }

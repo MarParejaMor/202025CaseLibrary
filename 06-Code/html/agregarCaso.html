@@ -44,30 +44,20 @@
                         <option value=""></option>
                         <option value="penal">Penal</option>
                         <option value="civil">Civil</option>
-                        <option value="consititucional">Consitucional</option>
+                        <option value="constitucional">Consitucional</option>
                         <option value="administrativo">Administrativo</option>
                         <option value="laboral">Laboral</option>
                     </select>
                 </div>
-                <div class="row mb-3">
-                    <p class="h5 mb-1">Datos del cliente</p>
-                    <div class="col-sm-6">
-                        <label class="form-label">Genero:</label><br>
-                        <select id="gender" name="gender" class="form-select">
-                            <option value=""></option>
-                            <option value="mujer">Mujer</option>
-                            <option value="hombre">Hombre</option>
-                        </select>
-                    </div>
-                    <div class="col-sm-6">
-                        <label class="form-label">Edad:</label><br>
-                        <input type="number" name="age" id="age" min="7" step="1" class=" form-control"></select>
-                    </div>
-                </div>
-                </div> 
                 <div class="mb-3">
                     <label for="conflict" class=" form-label col-form-label">Controversia/Conflicto:</label>
                     <input type="text" class="form-control" id="conflict" name="conflict" required onchange="conflictControl()">
+                </div>
+                <div class="row mb-3">
+                    <label for="processDescription" class="form-label">Resumen:</label>
+                    <textarea class="form-control" id="processDescription" name="processDescription" onchange="descriptionControl()" 
+                     placeholder="Breve descripcion del caso a tratar" required>
+                    </textarea>
                 </div> 
                 <div class="row mb-3">
                     <div class="col-md-6">
@@ -106,11 +96,20 @@
                 </div>
                 </div>
                 <div class="row mb-3">
-                    <label for="processDescription" class="form-label">Resumen:</label>
-                    <textarea class="form-control" id="processDescription" name="processDescription" onchange="descriptionControl()" 
-                     placeholder="Breve descripcion del caso a tratar" required>
-                    </textarea>
-                </div>
+                    <p class="h5 mb-1">Datos del cliente</p>
+                    <div class="col-sm-6">
+                        <label class="form-label">Genero:</label><br>
+                        <select id="gender" name="gender" class="form-select" required>
+                            <option value=""></option>
+                            <option value="mujer">Mujer</option>
+                            <option value="hombre">Hombre</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-6">
+                        <label class="form-label">Edad:</label><br>
+                        <input type="number" name="age" id="age" min="7" step="1" class=" form-control" required></select>
+                    </div>
+                </div> 
                     <div class="row justify-content-center align-items-center">
                         <div class="col-md-3">
                             <input type="submit" class="btn btn-sm btn-success mb-1" value="Guardar Cambios">
