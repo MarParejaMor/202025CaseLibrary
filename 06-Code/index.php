@@ -6,6 +6,6 @@ if(isset($_SESSION["account_id"]))
 }
 else
 {
-  header("Location: html/LoginRegister.html");
+  header("Location: html/loginRegister.html");
 }
 ?>
