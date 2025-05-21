@@ -1,3 +1,8 @@
+<?php
+session_start();
+include("../php/getProcesses.php");
+?>
+
 <!DOCTYPE html>
 <html lang="es">
   <head>
@@ -26,7 +31,7 @@
 
     <!-- Contenido principal -->
     <main class="container my-5 flex-grow-1">
-      <h1 class="mb-4">Proceso</h1>
+      <h1 class="mb-4">Procesos</h1>
       <div class="row">
         <div class="col-auto">
           <button class="btn btn-success mb-3">
@@ -38,27 +43,14 @@
       <div class="row g-4" id="processCardContainer">
 
         <!-- Event Cards -->
-        <div class="col-12 col-sm-6 col-lg-4">
-          <div class="card bg-dark-card text-white h-100 shadow">
-            <div class="card-header">
-              <h5 class="card-title mb-0">Titulo del Proceso</h5>
-            </div>
-            <div class="card-body">
-              <h6 class="card-subtitle mb-2 text-warning"><?= htmlspecialchars($pub['titulo']) ?></h6>
-              <p class="card-text"><?= htmlspecialchars($pub['descripcion']) ?></p>
-            </div>
-            <div class="card-footer d-flex justify-content-between">
-              <button class="btn btn-outline-light btn-sm">Me gusta</button>
-              <button class="btn btn-warning btn-sm">Comentar</button>
-            </div>
-          </div>
-        </div>
+        <?php
+          echo($html);
+          ?>
       </div>
     </main>
 
     
 
-
-    <script src="../javascript/getProcesses.js"></script>
+   <script src="../javascript/selectProcess.js"></script>
   </body>
 </html>

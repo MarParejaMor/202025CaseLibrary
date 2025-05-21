@@ -10,12 +10,14 @@ if($_SERVER["REQUEST_METHOD"]=="POST")
     $province=$_POST["province"];
     $canton=$_POST["canton"];
     $description=$_POST["processDescription"];
-
+    $clientGender=$_POST['gender'];
+    $clientAge=$_POST['age'];
     //Creacion del codigo interno de caso
 
-    $insertProcess=$conn->prepare("INSERT INTO `process`(`title`, `type`, `offense`, `canton`, `province`, `account_id`, `process_type`, `process_description`) 
-    VALUES (?,?,?,?,?,?,?,?)");
-    $insertProcess->bind_param("ssssssss", 
+    $insertProcess=$conn->prepare("INSERT INTO 
+    `process`(`title`, `type`, `offense`, `canton`, `province`, `account_id`, `process_type`, `process_description`,`client_gender`,`client_age`) 
+    VALUES (?,?,?,?,?,?,?,?.?,?)");
+    $insertProcess->bind_param("sssssssssi", 
         $title,
         $type,
         $conflict,
@@ -23,7 +25,9 @@ if($_SERVER["REQUEST_METHOD"]=="POST")
         $province,
         $account,
         $type,
-        $description
+        $description,
+        $clientGender,
+        $clientAge
     );
     if($insertProcess->execute())
     {
