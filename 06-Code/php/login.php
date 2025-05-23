@@ -7,7 +7,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST['password'];
 
     // Consulta que busca por username o email
-    $stmt = $conn->prepare("SELECT account_id, password FROM ACCOUNT WHERE username = ? OR email = ?");
+    $stmt = $conn->prepare("SELECT account_id, password FROM account WHERE username = ? OR email = ?");
     $stmt->bind_param("ss", $userInput, $userInput);
     $stmt->execute();
 
