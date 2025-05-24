@@ -1,5 +1,4 @@
 <?php
-session_start();
 include("db_connection.php");
 $userId=$_SESSION["account_id"];
 $processId=$_SESSION["selected-process"];
