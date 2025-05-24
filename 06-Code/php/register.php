@@ -25,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Verificar si username o email ya existen
-    $stmt = $conn->prepare("SELECT account_id FROM ACCOUNT WHERE username = ? OR email = ?");
+    $stmt = $conn->prepare("SELECT account_id FROM account WHERE username = ? OR email = ?");
     $stmt->bind_param("ss", $username, $email);
     $stmt->execute();
     $stmt->store_result();
@@ -41,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
     // Insertar nuevo usuario
-    $stmt = $conn->prepare("INSERT INTO ACCOUNT (username, password, email, phone_number) VALUES (?, ?, ?, ?)");
+    $stmt = $conn->prepare("INSERT INTO account (username, password, email, phone_number) VALUES (?, ?, ?, ?)");
     $stmt->bind_param("ssss", $username, $hashedPassword, $email, $phone);
 
     if ($stmt->execute()) {
