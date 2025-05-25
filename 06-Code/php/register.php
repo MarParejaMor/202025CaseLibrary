@@ -39,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Hashear la contraseña
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-    // Insertar nuevo usuario
+ 
     $stmt = $conn->prepare("INSERT INTO account (password, email, phone_number) VALUES (?, ?, ?)");
     $stmt->bind_param("sss", $hashedPassword, $email, $phone);
 
