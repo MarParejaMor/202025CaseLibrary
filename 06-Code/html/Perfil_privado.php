@@ -10,7 +10,21 @@ if (!isset($_SESSION["account_id"])) {
 $user_id = intval($_SESSION["account_id"]);
 
 // Consulta de datos con prepared statement
-$sql ="SELECT * FROM account as ac join user_profile as up on ac.account_id=up.account_id where ac.account_id=?";
+$sql = "
+    SELECT 
+        ac.account_id,
+        ac.name,
+        ac.lastname,
+        ac.email,
+        ac.phone_number,
+        ac.address,
+        up.profile_picture,
+        up.title,
+        up.bio
+    FROM account AS ac
+    JOIN user_profile AS up ON ac.account_id = up.account_id
+    WHERE ac.account_id = ?
+";
 if ($stmt = $conn->prepare($sql)) {
     $stmt->bind_param("i", $user_id);
     $stmt->execute();
