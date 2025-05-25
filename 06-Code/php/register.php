@@ -2,13 +2,12 @@
 require_once 'db_connection.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = trim($_POST['username']);
     $email = trim($_POST['email']);
     $phone = trim($_POST['phone_number']);
     $password = $_POST['password'];
 
     // Validaciones básicas en backend (por seguridad)
-    if (empty($username) || empty($email) || empty($password)) {
+    if (empty($email) || empty($password)) {
         echo json_encode(['success' => false, 'message' => 'Complete todos los campos obligatorios']);
         exit;
     }
@@ -18,20 +17,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit;
     }
 
-    // Validar contraseña con mismo patrón: mínimo 8 caracteres, 1 mayúscula, 3 números, 1 caracter especial
+    // Validar contraseña con patrón: mínimo 8 caracteres, 1 mayúscula, 3 números, 1 caracter especial
     if (!preg_match('/^(?=.*[A-Z])(?=(?:.*\d){3,})(?=.*[\W_]).{8,}$/', $password)) {
         echo json_encode(['success' => false, 'message' => 'La contraseña no cumple los requisitos']);
         exit;
     }
 
-    // Verificar si username o email ya existen
-    $stmt = $conn->prepare("SELECT account_id FROM account WHERE username = ? OR email = ?");
-    $stmt->bind_param("ss", $username, $email);
+    // Verificar si el email ya existe
+    $stmt = $conn->prepare("SELECT account_id FROM account WHERE email = ?");
+    $stmt->bind_param("s", $email);
     $stmt->execute();
     $stmt->store_result();
 
     if ($stmt->num_rows > 0) {
-        echo json_encode(['success' => false, 'message' => 'Usuario o correo ya registrado']);
+        echo json_encode(['success' => false, 'message' => 'Correo ya registrado']);
         $stmt->close();
         exit;
     }
@@ -41,8 +40,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
     // Insertar nuevo usuario
-    $stmt = $conn->prepare("INSERT INTO account (username, password, email, phone_number) VALUES (?, ?, ?, ?)");
-    $stmt->bind_param("ssss", $username, $hashedPassword, $email, $phone);
+    $stmt = $conn->prepare("INSERT INTO account (password, email, phone_number) VALUES (?, ?, ?)");
+    $stmt->bind_param("sss", $hashedPassword, $email, $phone);
 
     if ($stmt->execute()) {
         echo json_encode(['success' => true, 'message' => 'Registro exitoso. Ya puede iniciar sesión.']);
