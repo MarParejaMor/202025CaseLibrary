@@ -1,4 +1,9 @@
-
+<?php
+if(!isset($_SESSION["account_id"]))
+{
+  header("Location: loginRegister.html");
+}
+?>
 <!doctype html>
 <html>
 
@@ -34,6 +39,9 @@
                                 <ul class="navbar-nav">
                                     <li class="nav-item px-3 newhov">
                                         <a class="nav-link link-light" href="dashboard.php"><i class="bi bi-house-door"></i> Inicio</a>
+                                    </li>
+                                    <li class="nav-item px-3 newhov">
+                                        <a class="nav-link link-light" href="../php/ver_eventos.php"><i class="bi bi-calendar"></i> Eventos</a>
                                     </li>
                                     <li class="nav-item px-3 newhov">
                                         <a class="nav-link link-light" href="Perfil_privado.php"> <i class="bi bi-person-square"></i> Perfil</a>

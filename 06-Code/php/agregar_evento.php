@@ -52,7 +52,7 @@ $conn->close();
       <p>Serás redirigido en un momento...</p>
       <script>
         setTimeout(() => {
-          window.location.href = "ver_eventos.php?added=1";
+          window.location.href = "../html/ver_eventos.php?added=1";
         }, 1000);
       </script>
     <?php else: ?>

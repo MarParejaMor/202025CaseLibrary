@@ -9,7 +9,7 @@ if (isset($_GET['id'])) {
 
   if ($stmt->execute()) {
     // Redirige con mensaje
-    header("Location: ver_eventos.php?deleted=1");
+    header("Location: ../html/ver_eventos.php?deleted=1");
     exit();
   } else {
     echo "❌ Error al eliminar el evento: " . $stmt->error;

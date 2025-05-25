@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $stmt->bind_param("ssssi", $name, $description, $dateStart, $dateEnd, $event_id);
 
   if ($stmt->execute()) {
-    header("Location: ver_eventos.php?updated=1");
+    header("Location: ../html/ver_eventos.php?updated=1");
     exit();
   } else {
     echo "❌ Error al actualizar el evento: " . $stmt->error;
