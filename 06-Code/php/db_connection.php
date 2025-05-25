@@ -1,8 +1,8 @@
 <?php
-$host = "mysql.railway.internal";
-$user = "root";
-$password = "XMUHooSNwYbAZhKljqaXhDqZWCJVcZBP";
-$database = "railway";
+$host = "localhost";
+$user = "admin";
+$password = "admin";
+$database = "legal_system";
 
 $conn = new mysqli($host, $user, $password, $database);
 

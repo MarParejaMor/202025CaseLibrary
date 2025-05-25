@@ -1,5 +1,4 @@
 <?php
-session_start();
 $_SESSION["images"]="";
 $allowedtypes= array("image/jpg","image/jpeg","image/png");
 //Crea un directorio si no existe
@@ -18,7 +17,7 @@ if(isset($_FILES["profileImg"])){
 	}
 	else{
 	$extension=".".substr($imageType,6,4);
-	$filelocation="../images/profilePicture".$extension;
+	$filelocation="../images/profilePicture".$_SESSION['account_id'].$extension;
     if(file_exists($filelocation))
     {
         unlink($filelocation);
