@@ -1,9 +1,4 @@
-<?php
-if(!isset($_SESSION["account_id"]))
-{
-  header("Location: loginRegister.html");
-}
-?>
+
 <!doctype html>
 <html>
 

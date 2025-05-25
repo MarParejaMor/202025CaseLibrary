@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once 'db_connection.php';
-
+$_SESSION['account_id'] ="";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $userInput = trim($_POST['userInput']);
     $password = $_POST['password'];
