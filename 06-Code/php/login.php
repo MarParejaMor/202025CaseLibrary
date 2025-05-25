@@ -8,7 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Consulta que busca por username o email
     $stmt = $conn->prepare("SELECT account_id, password FROM account WHERE email = ?");
-    $stmt->bind_param("ss", $userInput, $userInput);
+    $stmt->bind_param("s", $userInput);
     $stmt->execute();
 
     $result = $stmt->get_result();
@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo json_encode(['success' => false, 'message' => 'Contraseña incorrecta']);
         }
     } else {
-        echo json_encode(['success' => false, 'message' => 'Usuario o correo no encontrado']);
+        echo json_encode(['success' => false, 'message' => 'Correo no encontrado']);
     }
 
     $stmt->close();
