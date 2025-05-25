@@ -17,7 +17,6 @@ $sql = "
         ac.lastname,
         ac.email,
         ac.phone_number,
-        ac.address,
         up.profile_picture,
         up.title,
         up.bio
