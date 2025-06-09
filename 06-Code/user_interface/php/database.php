@@ -1,7 +1,7 @@
 <?php
-$host = "localhost";
+$host = "mysql.railway.internal";
 $user = "root";
-$password = "";
+$password = "XMUHooSNwYbAZhKljqaXhDqZWCJVcZBP";
 $database = "legal_system";
 $port = 3306;
 
