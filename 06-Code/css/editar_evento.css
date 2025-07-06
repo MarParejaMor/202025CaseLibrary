@@ -1,0 +1,29 @@
+body {
+  background-color: #121212;
+  color: #ffffff;
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+.container {
+  background-color: #1e1e1e;
+  border-radius: 10px;
+  padding: 2rem;
+  max-width: 700px;
+  margin: auto;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.05);
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #ffc107;
+}
+
+.form-label {
+  color: #ffffff;
+}
+
+textarea {
+  resize: vertical;
+}
